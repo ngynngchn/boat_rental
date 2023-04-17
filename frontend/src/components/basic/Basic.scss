@@ -1,0 +1,61 @@
+nav {
+	display: flex;
+	gap: 5vw;
+	margin: 1rem;
+	justify-content: center;
+
+	a {
+		color: white;
+		text-decoration: none;
+		font-size: 1.2rem;
+	}
+}
+
+.Background {
+	background-color: #fff;
+	border-radius: 20px;
+	height: 100%;
+	width: 100%;
+	padding: 2vw;
+}
+
+.Card {
+	background: linear-gradient(289.84deg, #c8dff4 0%, #004f99 100%);
+	border-radius: 20px;
+	padding: 2rem 1rem;
+	color: white;
+	width: 250px;
+	margin: 1rem;
+	h4 {
+		font-size: 4rem;
+	}
+	h3 {
+		font-size: 1rem;
+		color: #ffffff70;
+	}
+}
+
+.AddBtn {
+	background: #a375bd;
+	border-radius: 10px;
+	color: white;
+	padding: 0.5rem;
+}
+
+// status color
+
+.free {
+	background: #75bd9a;
+}
+
+.reserved {
+	background: #bd757e;
+}
+
+.status {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	color: white;
+	width: fit-content;
+	justify-self: end;
+}

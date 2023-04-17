@@ -1,0 +1,23 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--bdrad-md: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+form {
+	padding: 2rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	input,
+	select {
+		padding: 0.4rem;
+	}
+}

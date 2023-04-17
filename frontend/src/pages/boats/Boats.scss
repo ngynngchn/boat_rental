@@ -1,0 +1,47 @@
+.Boats {
+	h1 {
+		left: -14px;
+		bottom: 80px;
+	}
+	.container {
+		padding-top: 2rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+}
+
+.BoatCard {
+	background: #e5f3ff;
+	border-radius: 20px;
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr min-content min-content;
+	grid-template-areas: "ship id" "name name" "year year";
+	gap: 0.5rem;
+	.ship {
+		font-size: 6rem;
+		translate: 0 -40px;
+	}
+	h4 {
+		font-size: 2rem;
+		color: #004f99;
+		justify-self: end;
+	}
+	h3 {
+		grid-area: name;
+		color: #004f99;
+	}
+	h5 {
+		color: #004f9980;
+		align-self: end;
+	}
+}
+
+.BoatForm {
+	h1 {
+		left: -110px;
+		bottom: 160px;
+	}
+}

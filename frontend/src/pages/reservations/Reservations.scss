@@ -1,0 +1,58 @@
+.ReservationCard {
+	background: #e5f3ff;
+	border-radius: 10px;
+	padding: 0.5rem;
+	color: #004f99;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	align-items: center;
+	justify-content: space-between;
+	h5 {
+		background-color: white;
+		padding: 0.5rem;
+		border-radius: 5px;
+		width: fit-content;
+		span {
+			background-color: #004f99;
+			color: white;
+			padding: 0.2rem;
+			border-radius: 5px;
+			margin-left: 0.5rem;
+		}
+	}
+	h4 {
+		font-size: 2rem;
+		color: white;
+		background-color: #004f99;
+		padding: 0.5rem 0.7rem;
+		border-radius: 10px;
+		width: fit-content;
+		justify-self: end;
+	}
+}
+
+.Reservation {
+	.container {
+		margin-top: 1.5rem;
+		display: grid;
+		gap: 1rem;
+		overflow: scroll;
+		.header {
+			display: grid;
+			margin-left: 1rem;
+			grid-template-columns: repeat(4, 1fr);
+			margin-bottom: 0.5rem;
+			h6 {
+				font-size: 1rem;
+				color: #004f99;
+			}
+		}
+	}
+}
+
+.ReservationsForm {
+	h1 {
+		left: -195px;
+		bottom: 250px;
+	}
+}

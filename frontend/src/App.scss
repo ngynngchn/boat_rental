@@ -1,0 +1,39 @@
+.App {
+	background: linear-gradient(
+		203.02deg,
+		#004f99 14.29%,
+		#a2d2ff 45.16%,
+		#e5f3ff 84.7%
+	);
+	height: 100vh;
+	padding: 5vh;
+	font-family: sans-serif;
+	// height: 100%;
+	.frame {
+		border-radius: var(--bdrad-md);
+		background: rgba(255, 255, 255, 0.49);
+		height: 100%;
+		width: 100%;
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		padding-left: 8vw;
+		padding-top: 3vw;
+		.logo {
+			position: absolute;
+			left: 0;
+			top: 0;
+			margin: 1rem;
+		}
+	}
+}
+
+h1 {
+	position: absolute;
+	left: -135px;
+	bottom: 200px;
+	transform: rotate(-90deg);
+	font-size: 4rem;
+	color: #004f9950;
+}

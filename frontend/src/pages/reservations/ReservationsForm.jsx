@@ -14,13 +14,13 @@ function ReservationsForm() {
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
 	const [boats, setBoats] = useState([]);
-	const [selectedID, setSelected] = useState();
+	const [selectedID, setSelectedID] = useState();
 	const [excludeDate, setExcludedDates] = useState([]);
 
 	const selectRef = useRef();
 	const navigate = useNavigate();
 
-	console.log(startDate.toLocaleString("en-GB"));
+	// console.log(startDate.toLocaleString("en-GB"));
 
 	const url = import.meta.env.VITE_BACKEND;
 	const endpoint = import.meta.env.VITE_ENDPOINT;
@@ -30,7 +30,11 @@ function ReservationsForm() {
 	// 	startDate.toLocaleString("en-GB"),
 	// 	endDate.toLocaleString("en-GB")
 	// );
-	console.log(startDate);
+	// console.log(startDate);
+
+	const handleRowClick = (id) => {
+		setSelectedID(id);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -118,7 +122,12 @@ function ReservationsForm() {
 					name="boat"
 					id="boat"
 					ref={selectRef}
-					onChange={() => setSelected(selectRef.current.value)}>
+					value={selectedID}
+					defaultValue=""
+					onChange={() => setSelectedID(selectRef.current.value)}>
+					<option disabled value="">
+						Select a boat
+					</option>
 					{boats?.map((boat) => (
 						<option value={boat["_id"]} key={uuid4()}>
 							{boat.name}
@@ -136,13 +145,14 @@ function ReservationsForm() {
 			</form>
 
 			<div className="container">
-				{boats?.map((boat) =>
-					boat["_id"] === selectedID ? (
-						<BoatRows boat={boat} selected key={uuid4()} />
-					) : (
-						<BoatRows boat={boat} key={uuid4()} />
-					)
-				)}
+				{boats?.map((boat) => (
+					<BoatRows
+						key={boat["_id"]}
+						boat={boat}
+						selected={boat["_id"] === selectedID}
+						onclick={() => handleRowClick(boat["_id"])}
+					/>
+				))}
 			</div>
 		</div>
 	);

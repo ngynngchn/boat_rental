@@ -9,13 +9,7 @@ function BoatCard({ ...boat }) {
 	return (
 		<Link to={`/boats/${boat["_id"]}`}>
 			<div className="BoatCard">
-				<img
-					className="ship"
-					src={url}
-					alt={boat.name}
-					height="100px"
-					width="100px"
-				/>
+				<img className="ship" src={url} alt={boat.name} />
 				<h4>{boat.boatID}</h4>
 				<h3>{boat.name}</h3>
 				<div>

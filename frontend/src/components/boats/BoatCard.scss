@@ -7,9 +7,16 @@
 	grid-template-rows: 1fr min-content min-content;
 	grid-template-areas: "ship id" "name name" "year year";
 	gap: 0.5rem;
+	.status {
+		justify-self: end;
+		align-self: end;
+	}
 	.ship {
 		grid-area: ship;
 		border-radius: var(--bdrad-md);
+		object-fit: cover;
+		height: 100px;
+		width: 150px;
 	}
 	h4 {
 		font-size: 2rem;

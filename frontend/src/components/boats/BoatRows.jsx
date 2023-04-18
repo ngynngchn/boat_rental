@@ -2,11 +2,13 @@ import { useState } from "react";
 import "./BoatRows.scss";
 import { Link } from "react-router-dom";
 
-function BoatRows({ boat, selected }) {
+function BoatRows({ boat, selected, onclick }) {
 	const url = import.meta.env.VITE_BACKEND + "/" + boat.pic;
 
 	return (
-		<div className={selected ? "BoatRows selected" : "BoatRows"}>
+		<div
+			className={selected ? "BoatRows selected" : "BoatRows"}
+			onClick={onclick}>
 			<img
 				className="ship"
 				src={url}

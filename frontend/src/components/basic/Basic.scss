@@ -48,6 +48,15 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
+.Button {
+	border: none;
+	padding: 0.3rem 0.5rem;
+	border-radius: 3px;
+	color: white;
+	cursor: pointer;
+	font-family: "Barlow Reg";
+}
+
 // status color
 
 .free {
@@ -65,13 +74,4 @@ input[type="submit"] {
 	color: white;
 	width: fit-content;
 	// justify-self: end;
-}
-
-.Button {
-	border: none;
-	padding: 0.3rem 0.5rem;
-	border-radius: 3px;
-	color: white;
-	cursor: pointer;
-	font-family: "Barlow Reg";
 }

@@ -1,60 +1,41 @@
-### BOAT RENTAL
+# BOAT RENTAL
 
-## Features
+# Features
 
-- GUI to manage a boat rental
-  - Manager should be able to add new boats and to edit or delete boats
-  - Each boat should have certain information saved in the database
-    - Year of manufacture
-    - Serial number
-    - Material:
-      - fiberglass
-      - wood
-      - metal
-      - cardboard
-      - soul(s)
-    - Type of boat:
-      - pedal boat
-      - sailboat
-      - hovercraft
-      - ghost ship
-      - container ship
+- Navigation
+  - **Dashboard**
+    - Display total amount of boats
+    - Display total amounts of reservations
+  - **Boats Overview**
+    - Display of all boats
+    - Button that leads to "Add a boat page"
+  - **Reservation Overview**
+    - Display of all reservations
+    - Button that leads to "Add a reservation"
 
-# DASHBOARD/ LANDINGPAGE
+**"Add a reservation" page**
 
-    main
-      - Current reservations
-      - Available boats
-      - Total number of boats
-    navbar
-      - link to boat overview
-        - button to add a boat
-          - lead to form page which has all important properties to add
-        - overview of all boats
-          - should be clickable to show detailpage of clicked boat
-          - button to edit boat and to remove boat
-      - link to reservation orverview
-        - button to add a reservation
-          - start date, end date boat selection (dropdown menu of all available boats)
-        - overview of all reservations
-          - should be clickable to show detailpage of clicked reservation
-          - button to edit reservation and to remove reservation
+- form to add name, email, start and end date, boat and status about payment
+- component on the side that displays all boats available and when selected show disabled and open dates
+- upon submit the user should be lead back to the reservation overview page
 
-## Design
+**"Add a boat" page**
 
-# Color scheme
+- form to add name, type, builder, build date, and a method to upload a picture
+- implement validation for each input field
+- upon submit the user should be lead back to the reservation overview page
 
-      - #CDB4DB
-      - #FFC8DD
-      - #FFAFCC
-      - #BDEOFE
-      - #A2D2FF
+**Details Page**
 
-# Fonts
+- details about boat or reservation can be viewed,edited and deleted
 
-    - Roboto or Lato
-    - highlight font : serif or handwriting
+# TODO:
 
-## Technologies Used
-
-List of technologies used in the project. For example:
+- BoatCard Images are too small
+- Boat Form needs to be adjusted
+- Reservation Form needs disabled dates
+- Reservation Form should select the selected Boat from the sidebar
+- Reservation Details Page is not finished
+- Implement a Filter in Boat overview to show which boats have reservations
+- excludeDates
+- Dashboard looks lonely

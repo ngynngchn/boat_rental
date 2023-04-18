@@ -1,0 +1,53 @@
+.BoatRows {
+	background: #e5f3ff;
+	border-radius: var(--bdrad-md);
+	padding: 1rem;
+	display: flex;
+	color: #004f99;
+	gap: 1rem;
+	font-family: "Barlow Reg";
+	&:hover {
+		box-shadow: inset 0 0 4px #004f99;
+	}
+	img {
+		border-radius: var(--bdrad-md);
+	}
+	h4 {
+		font-size: 2rem;
+		font-family: "Barlow Bold";
+		margin-inline: auto 0;
+		border-radius: 4px;
+		border: 1px solid #004f99;
+		padding: 0rem 0.5rem;
+		height: fit-content;
+	}
+	.info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		h5 {
+			color: #004f9970;
+		}
+		h3 {
+			font-family: "Barlow SBold";
+		}
+		a {
+			border: 1px solid var(--primary-col);
+			color: var(--primary-col);
+			padding: 0.2rem;
+			font-size: 0.8rem;
+			border-radius: 3px;
+			width: fit-content;
+			transition: 0.2s linear all;
+			&:hover {
+				border: 1px solid var(--primary-col);
+				color: white;
+				background-color: var(--primary-col);
+			}
+		}
+	}
+}
+
+.selected {
+	box-shadow: inset 0 0 4px #004f99;
+}

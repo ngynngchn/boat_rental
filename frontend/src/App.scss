@@ -5,7 +5,9 @@
 		#a2d2ff 45.16%,
 		#e5f3ff 84.7%
 	);
+	font-family: "Barlow Reg";
 	height: 100vh;
+	min-width: 500px;
 	padding: 5vh;
 	font-family: sans-serif;
 	// height: 100%;
@@ -31,9 +33,12 @@
 
 h1 {
 	position: absolute;
-	left: -135px;
-	bottom: 200px;
+	bottom: 0;
+	left: 20px;
+	z-index: 0;
+	transform-origin: bottom left;
 	transform: rotate(-90deg);
 	font-size: 4rem;
 	color: #004f9950;
+	font-family: "Barlow SBold";
 }

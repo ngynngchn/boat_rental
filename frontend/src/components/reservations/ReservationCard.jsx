@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import StatusTag from "../basic/StatusTag";
+import { Link, useNavigate } from "react-router-dom";
 
-function ReservationCard({ name, date, shipname, shipID, id }) {
+function ReservationCard({ name, date, id, status, _id, boat }) {
+	const navigate = useNavigate();
+	const [ship, setShip] = useState();
+	const url = import.meta.env.VITE_BACKEND + `/api/v1/boats/${boat}`;
+	console.log(url);
+
+	useEffect(() => {
+		const getData = async () => {
+			const response = await fetch(url);
+			const data = await response.json();
+			setShip(data);
+		};
+		getData();
+	}, []);
+
+	if (!ship) return;
+
 	return (
-		<div className="ReservationCard">
-			<h5>
-				{shipname} <span>{shipID}</span>
-			</h5>
-			<h3>{name}</h3>
-			<p>{date}</p>
+		<div
+			className="ReservationCard"
+			onClick={() => navigate(`/reservations/${_id}`)}>
 			<h4>{id}</h4>
+			<h3>{name}</h3>
+			<h5>
+				{/* <Link to={`/boats/${boat}`}> */}
+				{ship.name} <span>{ship.boatID}</span>
+				{/* </Link> */}
+			</h5>
+			<p>{date}</p>
+			<StatusTag content={status} />
 		</div>
 	);
 }

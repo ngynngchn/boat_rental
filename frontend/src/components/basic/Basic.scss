@@ -8,22 +8,25 @@ nav {
 		color: white;
 		text-decoration: none;
 		font-size: 1.2rem;
+		font-family: "Barlow SBold";
 	}
 }
 
 .Background {
 	background-color: #fff;
-	border-radius: 20px;
-	height: 100%;
+	border-radius: var(--bdrad-md);
+	height: 600px;
 	width: 100%;
-	padding: 2vw;
+	padding: 3vw;
+	position: relative;
+	z-index: 1;
 }
 
 .Card {
-	background: linear-gradient(289.84deg, #c8dff4 0%, #004f99 100%);
-	border-radius: 20px;
+	border-radius: var(--bdrad-md);
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	padding: 2rem 1rem;
-	color: white;
+	color: var(--primary-col);
 	width: 250px;
 	margin: 1rem;
 	h4 {
@@ -32,30 +35,43 @@ nav {
 	h3 {
 		font-size: 1rem;
 		color: #ffffff70;
+		color: var(--primary-col);
 	}
 }
 
-.AddBtn {
-	background: #a375bd;
-	border-radius: 10px;
+.AddBtn,
+input[type="submit"] {
+	background: var(--primary-col);
+	border-radius: 5px;
 	color: white;
 	padding: 0.5rem;
+	cursor: pointer;
 }
 
 // status color
 
 .free {
-	background: #75bd9a;
+	background: var(--positive-col);
 }
 
 .reserved {
-	background: #bd757e;
+	background: var(--danger-col);
 }
 
 .status {
-	padding: 0.5rem;
-	border-radius: 0.5rem;
+	padding: 0.2rem 0.5rem;
+	height: fit-content;
+	border-radius: 5px;
 	color: white;
 	width: fit-content;
-	justify-self: end;
+	// justify-self: end;
+}
+
+.Button {
+	border: none;
+	padding: 0.3rem 0.5rem;
+	border-radius: 3px;
+	color: white;
+	cursor: pointer;
+	font-family: "Barlow Reg";
 }

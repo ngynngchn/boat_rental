@@ -1,0 +1,28 @@
+.BoatCard {
+	background: #e5f3ff;
+	border-radius: var(--bdrad-md);
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr min-content min-content;
+	grid-template-areas: "ship id" "name name" "year year";
+	gap: 0.5rem;
+	.ship {
+		grid-area: ship;
+		border-radius: var(--bdrad-md);
+	}
+	h4 {
+		font-size: 2rem;
+		color: #004f99;
+		justify-self: end;
+		grid-area: id;
+	}
+	h3 {
+		grid-area: name;
+		color: #004f99;
+	}
+	h5 {
+		color: #004f9980;
+		align-self: end;
+	}
+}

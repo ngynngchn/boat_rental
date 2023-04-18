@@ -1,8 +1,24 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "./Boats.scss";
+
 import AddButton from "../../components/basic/AddButton";
 import BoatCard from "../../components/boats/BoatCard";
+
 function Boats() {
+	const [allBoats, setAllBoats] = useState([]);
+	const url = import.meta.env.VITE_BACKEND;
+	const endpoint = import.meta.env.VITE_ENDPOINT;
+
+	useEffect(() => {
+		const getData = async () => {
+			const response = await fetch(url + endpoint);
+			const data = await response.json();
+			console.log(data);
+			setAllBoats(data);
+		};
+		getData();
+	}, []);
+
 	return (
 		<div className="Boats">
 			<h1>Boats</h1>
@@ -13,34 +29,9 @@ function Boats() {
 				<option value="reserved">RESERVED</option>
 			</select> */}
 			<div className="container">
-				<BoatCard
-					name="The Atlanta"
-					year="2010"
-					type="Yacht"
-					id="12"
-					status="RESERVED"
-				/>
-				<BoatCard
-					name="The Atlanta"
-					year="2010"
-					type="Yacht"
-					id="12"
-					status="FREE"
-				/>
-				<BoatCard
-					name="The Atlanta"
-					year="2010"
-					type="Yacht"
-					id="12"
-					status="FREE"
-				/>
-				<BoatCard
-					name="The Atlanta"
-					year="2010"
-					type="Yacht"
-					id="12"
-					status="FREE"
-				/>
+				{allBoats?.map((boat) => (
+					<BoatCard {...boat} />
+				))}
 			</div>
 		</div>
 	);

@@ -1,53 +1,63 @@
-import React from "react";
 import ReservationCard from "../../components/reservations/ReservationCard";
 import AddButton from "../../components/basic/AddButton";
 import "./Reservations.scss";
 
+import { useState, useEffect } from "react";
+
 function Reservations() {
+	const [bookings, setBookings] = useState([]);
+	const url = import.meta.env.VITE_BACKEND + "/api/v1/reservations";
+
+	useEffect(() => {
+		const getData = async () => {
+			const response = await fetch(url);
+			const data = await response.json();
+			console.log(data);
+			setBookings(data);
+		};
+		getData();
+	}, []);
+
+	if (!bookings) return;
+
 	return (
-		<div className="Reservation">
+		<>
 			<h1>Reservations</h1>
-			<AddButton
-				content=" + ADD A RESERVATION"
-				link="reservations/add-reservation"
-			/>
-			<div className="container">
-				<div className="header">
-					<h6>Boat/Boat No.:</h6>
-					<h6>Reserved by:</h6>
-					<h6>Reservation Date</h6>
-					<h6>Reservation No.</h6>
+			<div className="Reservation">
+				<AddButton
+					content=" + ADD A RESERVATION"
+					link="reservations/add-reservation"
+				/>
+				<div className="container">
+					<div className="header">
+						<h6>Reservation No.</h6>
+						<h6>Reserved by:</h6>
+						<h6>Boat/Boat No.:</h6>
+						<h6>Reservation Date</h6>
+						<h6>Status</h6>
+					</div>
+
+					{bookings?.map((booking) => (
+						<ReservationCard
+							name={booking.name}
+							id="24"
+							_id={booking["_id"]}
+							boat={booking.boat}
+							date={
+								new Date(booking.date.startDate)
+									.toLocaleString("en-GB")
+									.split(",")[0] +
+								" - " +
+								new Date(booking.date.endDate)
+									.toLocaleString("en-GB")
+									.split(",")[0]
+							}
+							status={booking.status}
+						/>
+					))}
 				</div>
-				<ReservationCard
-					name="John Doe"
-					shipname="The Atlanta"
-					shipID="25"
-					id="24"
-					date="25.01.2023- 26.01.2023"
-				/>
-				<ReservationCard
-					name="John Doe"
-					shipname="The Atlanta"
-					shipID="25"
-					id="24"
-					date="25.01.2023- 26.01.2023"
-				/>
-				<ReservationCard
-					name="John Doe"
-					shipname="The Atlanta"
-					shipID="25"
-					id="24"
-					date="25.01.2023- 26.01.2023"
-				/>
-				<ReservationCard
-					name="John Doe"
-					shipname="The Atlanta"
-					shipID="25"
-					id="24"
-					date="25.01.2023- 26.01.2023"
-				/>
 			</div>
-		</div>
+		</>
 	);
 }
 

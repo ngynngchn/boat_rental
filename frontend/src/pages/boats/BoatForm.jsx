@@ -1,10 +1,12 @@
 import React from "react";
-
+import "./Boats.scss";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/basic/Button";
 function BoatForm() {
 	const url = import.meta.env.VITE_BACKEND;
 	const endpoint = import.meta.env.VITE_ENDPOINT;
 
-	console.log(url + endpoint);
+	const navigate = useNavigate();
 
 	const addData = async (e) => {
 		e.preventDefault();
@@ -18,12 +20,16 @@ function BoatForm() {
 		} catch (err) {
 			console.log("Something did not work", err);
 		}
+		navigate("/boats");
 		// e.target.reset()
 	};
 
 	return (
 		<div className="BoatForm">
 			<h1> NEW BOAT</h1>
+			<Button onClick={() => navigate(-1)} children color="#A2D2FF">
+				GO BACK
+			</Button>
 
 			<form onSubmit={addData}>
 				<label htmlFor="name">BOAT NAME</label>
@@ -42,10 +48,11 @@ function BoatForm() {
 					<option value="Ghost ship">Ghost ship</option>
 					<option value="Container ship">Container ship</option>
 					<option value="Yacht">Yacht</option>
+					<option value="House Boat">House Boat</option>
 				</select>
 
-				<label htmlFor="picture">Upload a picture</label>
-				<input type="file" name="picture" id="picture" />
+				<label htmlFor="pic">Upload a picture</label>
+				<input type="file" name="pic" id="pic" />
 				<input type="submit" value="ADD NEW BOAT" />
 			</form>
 		</div>

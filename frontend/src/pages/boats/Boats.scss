@@ -1,47 +1,50 @@
 .Boats {
-	h1 {
-		left: -14px;
-		bottom: 80px;
-	}
+	height: 100%;
 	.container {
-		padding-top: 2rem;
+		margin: 1rem 0;
+		// padding-top: 2rem;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 2rem;
+		overflow: scroll;
+		height: 100%;
 	}
 }
 
-.BoatCard {
-	background: #e5f3ff;
-	border-radius: 20px;
-	padding: 1rem;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr min-content min-content;
-	grid-template-areas: "ship id" "name name" "year year";
-	gap: 0.5rem;
-	.ship {
-		font-size: 6rem;
-		translate: 0 -40px;
+.BoatDetails,
+.DetailsFrame {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	gap: 1rem;
+
+	img {
+		height: 100%;
+		max-height: 550px;
+		width: 100%;
+		object-fit: cover;
+		border-radius: var(--bdrad-md);
 	}
-	h4 {
-		font-size: 2rem;
-		color: #004f99;
-		justify-self: end;
+	.actions {
+		display: flex;
+		justify-content: space-between;
 	}
-	h3 {
-		grid-area: name;
-		color: #004f99;
-	}
-	h5 {
-		color: #004f9980;
-		align-self: end;
+	form {
+		padding-top: 0;
+		height: inherit;
+		input,
+		select,
+		textarea {
+			width: 100%;
+		}
 	}
 }
 
 .BoatForm {
-	h1 {
-		left: -110px;
-		bottom: 160px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	button {
+		margin-inline: 0 auto;
 	}
 }

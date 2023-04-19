@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { v4 as uuid4 } from "uuid";
 import "./Boats.scss";
 
 import AddButton from "../../components/basic/AddButton";
@@ -13,7 +14,6 @@ function Boats() {
 		const getData = async () => {
 			const response = await fetch(url + endpoint);
 			const data = await response.json();
-			console.log(data);
 			setAllBoats(data);
 		};
 		getData();
@@ -30,7 +30,7 @@ function Boats() {
 			</select> */}
 			<div className="container">
 				{allBoats?.map((boat) => (
-					<BoatCard {...boat} />
+					<BoatCard {...boat} key={uuid4()} />
 				))}
 			</div>
 		</div>

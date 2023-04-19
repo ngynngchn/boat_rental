@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Boats.scss";
 import Button from "../../components/basic/Button";
+import DetailsFrame from "../../components/DetailsFrame";
 
 function BoatDetails() {
 	const [details, getDetails] = useState();
+	const [editable, setEditable] = useState(false);
 
 	const navigate = useNavigate();
 	const params = useParams();
+	const formRef = useRef();
+
 	const url = import.meta.env.VITE_BACKEND;
 	const endpoint = import.meta.env.VITE_ENDPOINT;
 
@@ -25,13 +29,16 @@ function BoatDetails() {
 			console.log(err);
 		}
 	};
-	const edit = async () => {};
+
+	const edit = () => {
+		formRef.current.removeAttribute("inert", "true");
+		setEditable(true);
+	};
 
 	useEffect(() => {
 		const getData = async () => {
 			const result = await fetch(url + endpoint + "/" + params.id);
 			const data = await result.json();
-			console.log(data);
 			getDetails(data);
 		};
 		getData();
@@ -43,7 +50,7 @@ function BoatDetails() {
 		<div className="BoatDetails">
 			<h1>{details.name}</h1>
 			<img src={url + "/" + details.pic} alt={details.name} />
-			<form>
+			<div>
 				<div className="actions">
 					<Button
 						color="var(--primary-col)"
@@ -52,36 +59,54 @@ function BoatDetails() {
 						GO BACK
 					</Button>
 				</div>
-				<label htmlFor="name">BOAT NAME</label>
-				<input type="text" name="name" id="name" value={details.name} />
-				<label htmlFor="year">BUILD YEAR</label>
-				<input type="text" name="year" id="year" value={details.year} />
-				<label htmlFor="ship-builder">SHIP BUILDER </label>
-				<input
-					type="text"
-					name="ship-builder"
-					id="ship-builder"
-					value={details["ship-builder"]}
-				/>
-				<label htmlFor="serialNo">SERIAL NO.</label>
-				<input
-					type="text"
-					name="serialNo"
-					id="serialNo"
-					value={details.serialNo}
-				/>
-				<label htmlFor="Type">BOAT TYPE</label>
-				<select name="type" id="type">
-					<option value="Pedal boat">Pedal boat</option>
-					<option value="Sailboat">Sailboat</option>
-					<option value="Hovercraft">Hovercraft</option>
-					<option value="Ghost ship">Ghost ship</option>
-					<option value="Container ship">Container ship</option>
-					<option value="Yacht">Yacht</option>
-				</select>
-				<label htmlFor="pic">Change picture</label>
-				<input type="file" name="pic" id="pic" />
-				{/* <input type="submit" value="ADD NEW BOAT" /> */}
+				<form inert="true" ref={formRef}>
+					<label htmlFor="name">BOAT NAME</label>
+					<input
+						type="text"
+						name="name"
+						id="name"
+						defaultValue={details.name}
+					/>
+					<label htmlFor="year">BUILD YEAR</label>
+					<input
+						type="text"
+						name="year"
+						id="year"
+						defaultValue={details.year}
+					/>
+					<label htmlFor="ship-builder">SHIP BUILDER </label>
+					<input
+						type="text"
+						name="ship-builder"
+						id="ship-builder"
+						defaultValue={details["ship-builder"]}
+					/>
+					<label htmlFor="serialNo">SERIAL NO.</label>
+					<input
+						type="text"
+						name="serialNo"
+						id="serialNo"
+						defaultValue={details.serialNo}
+					/>
+					<label htmlFor="Type">BOAT TYPE</label>
+					<select name="type" id="type">
+						<option value="Pedal boat">Pedal boat</option>
+						<option value="Sailboat">Sailboat</option>
+						<option value="Hovercraft">Hovercraft</option>
+						<option value="Ghost ship">Ghost ship</option>
+						<option value="Container ship">Container ship</option>
+						<option value="Yacht">Yacht</option>
+					</select>
+
+					{editable && (
+						<div>
+							<label htmlFor="pic">Change picture</label>
+							<input type="file" name="pic" id="pic" />
+						</div>
+					)}
+
+					{/* <input type="submit" value="ADD NEW BOAT" /> */}
+				</form>
 				<div className="actions">
 					<Button color="var(--danger-col)" children onClick={remove}>
 						REMOVE
@@ -90,7 +115,7 @@ function BoatDetails() {
 						EDIT
 					</Button>
 				</div>
-			</form>
+			</div>
 		</div>
 	);
 }

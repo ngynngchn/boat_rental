@@ -5,7 +5,6 @@ import "./BoatCard.scss";
 
 function BoatCard({ ...boat }) {
 	const url = import.meta.env.VITE_BACKEND + "/" + boat.pic;
-	console.log(url);
 	return (
 		<Link to={`/boats/${boat["_id"]}`}>
 			<div className="BoatCard">

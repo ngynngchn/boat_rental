@@ -1,17 +1,3 @@
-nav {
-	display: flex;
-	gap: 5vw;
-	margin: 1rem;
-	justify-content: center;
-
-	a {
-		color: white;
-		text-decoration: none;
-		font-size: 1.2rem;
-		font-family: "Barlow SBold";
-	}
-}
-
 .Background {
 	background-color: #fff;
 	border-radius: var(--bdrad-md);
@@ -74,4 +60,28 @@ input[type="submit"] {
 	color: white;
 	width: fit-content;
 	// justify-self: end;
+}
+
+.DetailsFrame {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	img {
+		height: 100%;
+		max-height: 550px;
+		width: 100%;
+		object-fit: cover;
+		border-radius: var(--bdrad-md);
+	}
+}
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 0.5rem;
+}
+
+.datepicker {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 }

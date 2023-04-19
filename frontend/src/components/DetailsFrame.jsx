@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Button from "./basic/Button";
-function DetailsFrame({ details, removeEvent, editEvent }) {
-	const url = import.meta.env.VITE_BACKEND;
+import "../components/basic/Basic.scss";
+
+function DetailsFrame({ details, removeEvent, editEvent, children }) {
 	const [boatData, setBoatData] = useState();
+	const navigate = useNavigate();
+
+	const url = import.meta.env.VITE_BACKEND;
 
 	useEffect(() => {
 		const getData = async () => {
@@ -27,7 +33,7 @@ function DetailsFrame({ details, removeEvent, editEvent }) {
 						GO BACK
 					</Button>
 				</div>
-
+				{children}
 				<div className="actions">
 					<Button color="var(--danger-col)" children onClick={removeEvent}>
 						REMOVE

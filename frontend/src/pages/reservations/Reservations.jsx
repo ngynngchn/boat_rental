@@ -3,6 +3,7 @@ import AddButton from "../../components/basic/AddButton";
 import "./Reservations.scss";
 
 import { useState, useEffect } from "react";
+import { v4 as uuid4 } from "uuid";
 
 function Reservations() {
 	const [bookings, setBookings] = useState([]);
@@ -39,8 +40,9 @@ function Reservations() {
 
 					{bookings?.map((booking) => (
 						<ReservationCard
+							key={uuid4()}
 							name={booking.name}
-							id="24"
+							id={booking.bookingID}
 							_id={booking["_id"]}
 							boat={booking.boat}
 							date={

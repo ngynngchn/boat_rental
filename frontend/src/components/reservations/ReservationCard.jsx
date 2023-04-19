@@ -23,7 +23,7 @@ function ReservationCard({ name, date, id, status, _id, boat }) {
 		<div
 			className="ReservationCard"
 			onClick={() => navigate(`/reservations/${_id}`)}>
-			<h4>{id}</h4>
+			<h4>{id?.toString().padStart(2, 0)}</h4>
 			<h3>{name}</h3>
 			<h5>
 				{/* <Link to={`/boats/${boat}`}> */}

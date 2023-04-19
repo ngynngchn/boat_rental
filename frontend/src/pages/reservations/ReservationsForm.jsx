@@ -38,7 +38,6 @@ function ReservationsForm() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("clicked");
 		const form = new FormData(e.target);
 
 		let newForm = {
@@ -61,6 +60,7 @@ function ReservationsForm() {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(newForm),
 			});
+			navigate("/reservations");
 			// console.log(response);
 		} catch (err) {
 			console.log(err);

@@ -9,14 +9,31 @@ function Dashboard() {
 	const endpoint = import.meta.env.VITE_ENDPOINT;
 	console.log(url + endpoint);
 
+	const getData = async () => {
+		try {
+			const [boatsResponse, reservationsResponse] = await Promise.all([
+				fetch(url + endpoint + "-total"),
+				fetch(url + "/api/v1/reservations" + "-total"),
+			]);
+
+			const [boatsData, reservationsData] = await Promise.all([
+				boatsResponse.json(),
+				reservationsResponse.json(),
+			]);
+
+			console.log(boatsData, reservationsData);
+
+			setCount({
+				boats: boatsData,
+				reservations: reservationsData,
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	useEffect(() => {
-		const getCount = async () => {
-			const response = await fetch(url + endpoint + "-total");
-			const data = await response.json();
-			console.log(data);
-			setCount({ boats: data });
-		};
-		getCount();
+		getData();
 	}, []);
 
 	return (

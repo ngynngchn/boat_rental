@@ -17,6 +17,8 @@ import {
 	getSingleBooking,
 	deleteBooking,
 } from "./controler/bookingControler.js";
+import { encryptPWD } from "./middleware/authMiddleware.js";
+import { login, register } from "./controler/authController.js";
 
 const PORT = process.env.PORT;
 const origin = process.env.VITE_FRONTEND;
@@ -50,5 +52,22 @@ server.get("/api/v1/reservations-total", getBookingsCount);
 
 server.get("/api/v1/reservations/:id", getSingleBooking);
 server.delete("/api/v1/reservations/:id", deleteBooking);
+
+// cookie setzten
+server.get("/test", (req, res) => {
+	res.cookie("TEST", "YOUR TEST COOKIE");
+	res.status(200).send("ALL GOOD");
+});
+
+server.get("/cookie", (req, res) => {
+	console.log(req.cookies.token);
+	res.end();
+});
+
+//register
+server.post("/register", encryptPWD, register);
+
+//login
+server.post("/login", encryptPWD, login);
 
 server.listen(PORT, () => console.log("I am listening to PORT", PORT));

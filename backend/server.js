@@ -76,6 +76,6 @@ server.post("/register", upload.none(), validatePassword, encryptPWD, register);
 server.post("/login", upload.none(), encryptPWD, login);
 
 //validation
-server.get("/api/v1/validate", verifyJWTCookie, (req, res) => res.end());
+server.get("/validate", verifyJWTCookie, (req, res) => res.end());
 
 server.listen(PORT, () => console.log("I am listening to PORT", PORT));

@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import multer from "multer";
+import cookieParser from "cookie-parser";
 import {
 	addBoat,
 	deleteBoat,
@@ -27,7 +28,8 @@ const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
-server.use(cors());
+server.use(cors({ origin: true, credentials: true }));
+server.use(cookieParser());
 
 const upload = multer({ dest: "uploads/" });
 server.use("/uploads", express.static("./uploads"));
@@ -60,12 +62,12 @@ server.get("/test", (req, res) => {
 });
 
 server.get("/cookie", (req, res) => {
-	console.log(req.cookies.token);
+	console.log(req.cookies);
 	res.end();
 });
 
 //register
-server.post("/register", encryptPWD, register);
+server.post("/register", upload.none(), encryptPWD, register);
 
 //login
 server.post("/login", encryptPWD, login);

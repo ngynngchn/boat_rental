@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./Register.scss";
 
 import React, { useRef, useState } from "react";
@@ -6,6 +7,9 @@ function Register() {
 	const url = import.meta.env.VITE_BACKEND;
 
 	const [matched, setMatched] = useState(true);
+	const [message, setMessage] = useState(null);
+
+	const navigate = useNavigate();
 
 	const cpwdRef = useRef(null);
 	const pwdRef = useRef(null);
@@ -17,6 +21,7 @@ function Register() {
 			setMatched(true);
 		}
 	};
+
 	const handlePwdChange = () => {
 		if (pwdRef.current.value !== cpwdRef.current.value) {
 			setMatched(false);
@@ -35,9 +40,11 @@ function Register() {
 					method: "POST",
 					body: form,
 				});
-				console.log(result);
+				const data = await result.json();
+				setMessage(data.message);
+				navigate("/");
 			} catch (err) {
-				console.log(err);
+				console.log(err.message);
 			}
 		}
 	};
@@ -69,6 +76,7 @@ function Register() {
 				/>
 				{!matched && <p>Sorry, but your passwords don't match!</p>}
 				<input type="submit" value="REGISTER" disabled={!matched} />
+				{message && <p> {message}</p>}
 			</form>
 		</div>
 	);

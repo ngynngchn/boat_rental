@@ -18,13 +18,16 @@ import {
 	getSingleBooking,
 	deleteBooking,
 } from "./controler/bookingControler.js";
-import { encryptPWD } from "./middleware/authMiddleware.js";
+import {
+	encryptPWD,
+	validatePassword,
+	verifyJWTCookie,
+} from "./middleware/authMiddleware.js";
 import { login, register } from "./controler/authController.js";
 
+const server = express();
 const PORT = process.env.PORT;
 const origin = process.env.VITE_FRONTEND;
-
-const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
@@ -55,21 +58,24 @@ server.get("/api/v1/reservations-total", getBookingsCount);
 server.get("/api/v1/reservations/:id", getSingleBooking);
 server.delete("/api/v1/reservations/:id", deleteBooking);
 
-// cookie setzten
-server.get("/test", (req, res) => {
-	res.cookie("TEST", "YOUR TEST COOKIE");
-	res.status(200).send("ALL GOOD");
-});
+// // cookie setzten
+// server.get("/test", (req, res) => {
+// 	res.cookie("TEST", "YOUR TEST COOKIE");
+// 	res.status(200).send("ALL GOOD");
+// });
 
-server.get("/cookie", (req, res) => {
-	console.log(req.cookies);
-	res.end();
-});
+// server.get("/cookie", (req, res) => {
+// 	console.log(req.cookies);
+// 	res.end();
+// });
 
 //register
-server.post("/register", upload.none(), encryptPWD, register);
+server.post("/register", upload.none(), validatePassword, encryptPWD, register);
 
 //login
-server.post("/login", encryptPWD, login);
+server.post("/login", upload.none(), encryptPWD, login);
+
+//validation
+server.get("/api/v1/validate", verifyJWTCookie, (req, res) => res.end());
 
 server.listen(PORT, () => console.log("I am listening to PORT", PORT));

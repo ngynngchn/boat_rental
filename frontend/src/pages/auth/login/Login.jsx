@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.scss";
 
+import logo from "../../../assets/logo.svg";
 function Login() {
 	const navigate = useNavigate();
 	const url = import.meta.env.VITE_BACKEND;
@@ -20,6 +21,8 @@ function Login() {
 
 	return (
 		<div className="Login">
+			<img src={logo} alt="logo" />
+			<h3>LOG IN TO YOUR ACCOUNT:</h3>
 			<form onSubmit={login}>
 				<label htmlFor="email">YOUR EMAIL:</label>
 				<input type="email" name="email" required id="email" />
@@ -27,6 +30,9 @@ function Login() {
 				<input type="password" name="pwd" required id="pwd" />
 				<input type="submit" value="LOGIN" />
 			</form>
+			<h4>
+				Don't have an account ? <Link to="/register">Sign Up!</Link>
+			</h4>
 		</div>
 	);
 }

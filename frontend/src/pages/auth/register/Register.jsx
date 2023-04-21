@@ -1,7 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Register.scss";
 
 import React, { useRef, useState } from "react";
+
+import logo from "../../../assets/logo.svg";
 
 function Register() {
 	const url = import.meta.env.VITE_BACKEND;
@@ -51,6 +53,8 @@ function Register() {
 
 	return (
 		<div className="Register">
+			<img src={logo} alt="logo" />
+			<h3>CREATE AN ACCOUNT:</h3>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="username">YOUR USERNAME:</label>
 				<input type="text" name="username" required id="username" />
@@ -78,6 +82,9 @@ function Register() {
 				<input type="submit" value="REGISTER" disabled={!matched} />
 				{message && <p> {message}</p>}
 			</form>
+			<h4>
+				Already have an account? <Link to="/">Log in!</Link>
+			</h4>
 		</div>
 	);
 }

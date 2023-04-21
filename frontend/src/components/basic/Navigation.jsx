@@ -2,12 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Basic.scss";
 
+import { NavLink } from "react-router-dom";
+import Button from "./Button";
+
 function Navigation() {
 	return (
 		<nav>
-			<Link to="/dashboard">DASHBOARD</Link>
-			<Link to="/boats">BOATS</Link>
-			<Link to="/reservations">RESERVATIONS</Link>
+			<NavLink to="/dashboard" activeclassname="active">
+				Dashboard
+			</NavLink>
+			<NavLink to="/boats" activeclassname="active">
+				Boats
+			</NavLink>
+			<NavLink to="/reservations" activeclassname="active">
+				Reservations
+			</NavLink>
+			<Button color="var(--primary-col)"> LOG OUT</Button>
 		</nav>
 	);
 }

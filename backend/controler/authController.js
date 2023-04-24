@@ -51,8 +51,17 @@ export const login = async (req, res) => {
 		// authentification token as ist value, using the 'cookieConfig' options
 		res.cookie("token", token, cookieConfig);
 		// end the response
+		// res.redirect(process.env.VITE_FRONTEND + "/dashboard");
 		res.json({ message: "You logged in successfully" });
 	}
+};
+
+// function to clear the token cookie and log the user out
+export const logout = (req, res) => {
+	// clear the 'token' cookie by setting it to an empty string
+	res.cookie("token", "", { maxAge: 0 });
+	// send a success message to the client
+	res.json({ message: "You have been logged out" });
 };
 
 const checkMail = async (email) => {

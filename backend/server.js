@@ -23,7 +23,7 @@ import {
 	validatePassword,
 	verifyJWTCookie,
 } from "./middleware/authMiddleware.js";
-import { login, register } from "./controler/authController.js";
+import { login, logout, register } from "./controler/authController.js";
 
 const server = express();
 const PORT = process.env.PORT;
@@ -31,32 +31,32 @@ const origin = process.env.VITE_FRONTEND;
 
 server.use(morgan("dev"));
 server.use(express.json());
-server.use(cors({ origin: true, credentials: true }));
+server.use(cors({ origin: origin, credentials: true }));
 server.use(cookieParser());
 
 const upload = multer({ dest: "uploads/" });
 server.use("/uploads", express.static("./uploads"));
 
 // boats
-server.post("/api/v1/boats", upload.single("pic"), addBoat);
+server.post("/api/v1/boats", upload.single("pic"), verifyJWTCookie, addBoat);
 
-server.get("/api/v1/boats", getBoats);
+server.get("/api/v1/boats", verifyJWTCookie, getBoats);
 
-server.get("/api/v1/boats-total", getBoatCount);
+server.get("/api/v1/boats-total", verifyJWTCookie, getBoatCount);
 
-server.get("/api/v1/boats/:id", getBoat);
+server.get("/api/v1/boats/:id", verifyJWTCookie, getBoat);
 
-server.delete("/api/v1/boats/:id", deleteBoat);
+server.delete("/api/v1/boats/:id", verifyJWTCookie, deleteBoat);
 
 // reservations
-server.post("/api/v1/reservations", addReservation);
+server.post("/api/v1/reservations", verifyJWTCookie, addReservation);
 
-server.get("/api/v1/reservations", getReservation);
+server.get("/api/v1/reservations", verifyJWTCookie, getReservation);
 
-server.get("/api/v1/reservations-total", getBookingsCount);
-
-server.get("/api/v1/reservations/:id", getSingleBooking);
-server.delete("/api/v1/reservations/:id", deleteBooking);
+server.get("/api/v1/reservations-total", verifyJWTCookie, getBookingsCount);
+verifyJWTCookie,
+	server.get("/api/v1/reservations/:id", verifyJWTCookie, getSingleBooking);
+server.delete("/api/v1/reservations/:id", verifyJWTCookie, deleteBooking);
 
 // // cookie setzten
 // server.get("/test", (req, res) => {
@@ -70,12 +70,23 @@ server.delete("/api/v1/reservations/:id", deleteBooking);
 // });
 
 //register
-server.post("/register", upload.none(), validatePassword, encryptPWD, register);
+server.post(
+	"/api/v1/register",
+	upload.none(),
+	validatePassword,
+	encryptPWD,
+	register
+);
 
 //login
-server.post("/login", upload.none(), encryptPWD, login);
+server.post("/api/v1/login", upload.none(), encryptPWD, login);
+
+// logout
+server.post("/api/v1/logout", logout);
 
 //validation
-server.get("/validate", verifyJWTCookie, (req, res) => res.end());
+server.get("/api/v1/validate", verifyJWTCookie, (req, res) => {
+	res.end();
+});
 
 server.listen(PORT, () => console.log("I am listening to PORT", PORT));

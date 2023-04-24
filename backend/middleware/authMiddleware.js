@@ -33,8 +33,9 @@ export const verifyJWTCookie = (req, res, next) => {
 		next();
 	} catch (err) {
 		// send  401 Unauthorized response if token is invalid
-		console.error(err.message);
+		console.error("verifyJWTC:", err.message);
 		res.status(401).end();
+		// res.redirect("/login");
 	}
 };
 

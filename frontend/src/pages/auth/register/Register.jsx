@@ -7,6 +7,7 @@ import logo from "../../../assets/logo.svg";
 
 function Register() {
 	const url = import.meta.env.VITE_BACKEND;
+	const apiV = import.meta.env.VITE_API_VERSION;
 
 	const [matched, setMatched] = useState(true);
 	const [message, setMessage] = useState(null);
@@ -38,9 +39,10 @@ function Register() {
 			try {
 				const form = new FormData(e.target);
 
-				const result = await fetch(url + "/register", {
+				const result = await fetch(url + apiV + "/register", {
 					method: "POST",
 					body: form,
+					credentials: "include",
 				});
 				const data = await result.json();
 				setMessage(data.message);

@@ -5,11 +5,12 @@ import logo from "../../../assets/logo.svg";
 function Login() {
 	const navigate = useNavigate();
 	const url = import.meta.env.VITE_BACKEND;
+	const apiV = import.meta.env.VITE_API_VERSION;
 
 	const login = async (e) => {
 		e.preventDefault();
 		const form = new FormData(e.target);
-		const result = await fetch(url + "/login", {
+		const result = await fetch(url + apiV + "/login", {
 			method: "POST",
 			credentials: "include",
 			body: form,

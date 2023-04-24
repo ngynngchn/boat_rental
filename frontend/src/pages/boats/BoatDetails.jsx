@@ -19,6 +19,7 @@ function BoatDetails() {
 		try {
 			const response = await fetch(url + endpoint + "/" + params.id, {
 				method: "DELETE",
+				credentials: "include",
 			});
 			if (!response.ok) return err;
 			else {
@@ -37,7 +38,9 @@ function BoatDetails() {
 
 	useEffect(() => {
 		const getData = async () => {
-			const result = await fetch(url + endpoint + "/" + params.id);
+			const result = await fetch(url + endpoint + "/" + params.id, {
+				credentials: "include",
+			});
 			const data = await result.json();
 			getDetails(data);
 		};

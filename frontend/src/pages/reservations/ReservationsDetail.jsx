@@ -28,6 +28,7 @@ function ReservationsDetail() {
 		try {
 			const response = await fetch(url + endpoint + params.id, {
 				method: "DELETE",
+				credentials: "include",
 			});
 			if (!response.ok) return err;
 			else {
@@ -47,7 +48,9 @@ function ReservationsDetail() {
 
 	useEffect(() => {
 		const getData = async () => {
-			const result = await fetch(url + endpoint + params.id);
+			const result = await fetch(url + endpoint + params.id, {
+				credentials: "include",
+			});
 			const data = await result.json();
 			getDetails(data);
 			setStartDate(new Date(data.date.startDate));
@@ -61,7 +64,9 @@ function ReservationsDetail() {
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				const result = await fetch(url + import.meta.env.VITE_ENDPOINT);
+				const result = await fetch(url + import.meta.env.VITE_ENDPOINT, {
+					credentials: "include",
+				});
 				const data = await result.json();
 				setBoats(data);
 			} catch (err) {

@@ -12,7 +12,8 @@ function Boats() {
 
 	useEffect(() => {
 		const getData = async () => {
-			const response = await fetch(url + endpoint);
+			const response = await fetch(url + endpoint, { credentials: "include" });
+
 			const data = await response.json();
 			setAllBoats(data);
 		};

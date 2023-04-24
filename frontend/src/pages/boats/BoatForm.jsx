@@ -15,6 +15,7 @@ function BoatForm() {
 			const response = await fetch(url + endpoint, {
 				method: "POST",
 				body: form,
+				credentials: "include",
 			});
 			console.log(response);
 		} catch (err) {

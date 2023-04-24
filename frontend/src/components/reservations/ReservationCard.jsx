@@ -5,12 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 function ReservationCard({ name, date, id, status, _id, boat }) {
 	const navigate = useNavigate();
 	const [ship, setShip] = useState();
-	const url = import.meta.env.VITE_BACKEND + `/api/v1/boats/${boat}`;
+	const url = import.meta.env.VITE_BACKEND;
 	console.log(url);
 
 	useEffect(() => {
 		const getData = async () => {
-			const response = await fetch(url);
+			const response = await fetch(url + `/api/v1/boats/${boat}`, {
+				credentials: "include",
+			});
 			const data = await response.json();
 			setShip(data);
 		};

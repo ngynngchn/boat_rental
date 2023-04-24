@@ -59,6 +59,7 @@ function ReservationsForm() {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(newForm),
+				credentials: "include",
 			});
 			navigate("/reservations");
 			// console.log(response);
@@ -70,7 +71,9 @@ function ReservationsForm() {
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				const result = await fetch(url + endpoint);
+				const result = await fetch(url + endpoint, {
+					credentials: "include",
+				});
 				const data = await result.json();
 				// console.log(data);
 				setBoats(data);

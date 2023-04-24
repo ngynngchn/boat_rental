@@ -12,7 +12,9 @@ function DetailsFrame({ details, removeEvent, editEvent, children }) {
 
 	useEffect(() => {
 		const getData = async () => {
-			const response = await fetch(url + `/api/v1/boats/${details.boat}`);
+			const response = await fetch(url + `/api/v1/boats/${details.boat}`, {
+				credentials: "include",
+			});
 			const data = await response.json();
 			setBoatData(data);
 		};

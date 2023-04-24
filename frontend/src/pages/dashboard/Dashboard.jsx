@@ -7,21 +7,22 @@ function Dashboard() {
 
 	const url = import.meta.env.VITE_BACKEND;
 	const endpoint = import.meta.env.VITE_ENDPOINT;
-	console.log(url + endpoint);
 
 	const getData = async () => {
 		try {
 			const [boatsResponse, reservationsResponse] = await Promise.all([
-				fetch(url + endpoint + "-total"),
-				fetch(url + "/api/v1/reservations" + "-total"),
+				fetch(url + endpoint + "-total", {
+					credentials: "include",
+				}),
+				fetch(url + "/api/v1/reservations-total", {
+					credentials: "include",
+				}),
 			]);
 
 			const [boatsData, reservationsData] = await Promise.all([
 				boatsResponse.json(),
 				reservationsResponse.json(),
 			]);
-
-			console.log(boatsData, reservationsData);
 
 			setCount({
 				boats: boatsData,

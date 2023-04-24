@@ -1,7 +1,6 @@
 import React from "react";
 
 function StatusTag({ content }) {
-	console.log(content == "FREE");
 	return (
 		<div
 			className={

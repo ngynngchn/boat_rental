@@ -60,17 +60,17 @@ This is a web application that helps to manage the rental of boats. Users can lo
 
 ## **TODO**:
 
-[ ] Implement validation for each input field
-[ ] Add a card which display how many boats are available as of today
-[ ] Reservation Form needs disabled dates
-[x] Reservation Form should select the selected Boat from the sidebar
+- [ ] Implement validation for each input field
+- [ ] Add a card which display how many boats are available as of today
+- [ ] Reservation Form needs disabled dates
+- [x] Reservation Form should select the selected Boat from the sidebar
 
-[x] BoatCard Images are too small
-[x] Boat Form needs to be adjusted
-[x] Finish Reservation Details Page
-[ ] Implement a Filter in Boat overview to show which boats have reservations
-[ ] Boat Details and Reservstion Details Edits should be send to the backend
+- [x] BoatCard Images are too small
+- [x] Boat Form needs to be adjusted
+- [x] Finish Reservation Details Page
+- [ ] Implement a Filter in Boat overview to show which boats have reservations
+- [ ] Boat Details and Reservstion Details Edits should be send to the backend
 
-[ ] Fix Numbers(for boats and bookins), as currently the No. is determined by length of array; so if a booking is deleted, the index will be different
-[ ] Add a link in the email to let the user go to the page to enter their code
-[ ] Add "Reset Password" function for the user in case he wants to change it or has forgotten it
+- [ ] Fix Numbers(for boats and bookins), as currently the No. is determined by length of array; so if a booking is deleted, the index will be different
+- [ ] Add a link in the email to let the user go to the page to enter their code
+- [ ] Add "Reset Password" function for the user in case he wants to change it or has forgotten it

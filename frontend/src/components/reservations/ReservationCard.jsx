@@ -6,7 +6,6 @@ function ReservationCard({ name, date, id, status, _id, boat }) {
 	const navigate = useNavigate();
 	const [ship, setShip] = useState();
 	const url = import.meta.env.VITE_BACKEND;
-	console.log(url);
 
 	useEffect(() => {
 		const getData = async () => {

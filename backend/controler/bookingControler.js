@@ -27,7 +27,7 @@ export const getSingleBooking = async (req, res) => {
 			.findOne({ _id: new ObjectId(req.params.id) });
 		if (result === null) res.end();
 		else {
-			console.log(result);
+			// console.log(result);
 			res.json(result);
 		}
 	} catch (err) {
@@ -40,7 +40,7 @@ export const getBookingsCount = async (req, res) => {
 	try {
 		const db = await getDB();
 		const length = await db.collection(COL).countDocuments();
-		console.log(length);
+		// console.log(length);
 		if (length === null) res.end();
 		else {
 			res.json(length);
@@ -57,9 +57,20 @@ export const addReservation = async (req, res) => {
 		const db = await getDB();
 		const length = await db.collection(COL).countDocuments();
 		req.body.bookingID = length + 1;
-		console.log(req.body);
+		// console.log(req.body);
 		const result = await db.collection(COL).insertOne(req.body);
-		console.log(result);
+		// console.log(result);
+		let reservation = {
+			date: req.body.date,
+			id: result.insertedId,
+		};
+		const boat = await db
+			.collection("boats")
+			.updateOne(
+				{ _id: new ObjectId(req.body.boat) },
+				{ $push: { reservations: reservation } }
+			);
+		console.log("INSERT", boat);
 		if (result === null) res.end();
 		else {
 			res.json(result);

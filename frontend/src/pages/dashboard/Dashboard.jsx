@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.scss";
+
 import Card from "../../components/Card";
 
 function Dashboard() {
 	const [count, setCount] = useState({ boats: 0, reservations: 0 });
+	const [date, setDate] = useState(new Date());
 
 	const url = import.meta.env.VITE_BACKEND;
 	const endpoint = import.meta.env.VITE_ENDPOINT;
@@ -23,7 +25,6 @@ function Dashboard() {
 				boatsResponse.json(),
 				reservationsResponse.json(),
 			]);
-
 			setCount({
 				boats: boatsData,
 				reservations: reservationsData,
@@ -40,10 +41,19 @@ function Dashboard() {
 	return (
 		<>
 			<h1>DASHBOARD</h1>
+			<h2>Welcome back! </h2>
+			<div className="actions">
+				<h3>TODAY: {new Intl.DateTimeFormat("en-GB").format(date)} </h3>
+			</div>
 			<div className="Dashboard">
 				<Card title="Total amount of boats" amount={count.boats} />
-				<Card title="Reservations" amount={count.reservations} />
+				<Card
+					title="Total amount of reservations"
+					amount={count.reservations}
+				/>
+				<Card title="Available boats for today" />
 			</div>
+			<h3>TODAYS RESERVATIONS:</h3>
 		</>
 	);
 }

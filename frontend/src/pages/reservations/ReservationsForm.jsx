@@ -46,8 +46,8 @@ function ReservationsForm() {
 			boat: form.get("boat"),
 			notes: form.get("notes"),
 			date: {
-				startDate: startDate,
-				endDate: endDate,
+				startDate: new Date(startDate),
+				endDate: new Date(endDate),
 			},
 			status: form.get("status"),
 

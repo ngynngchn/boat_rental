@@ -3,6 +3,7 @@ import "./Login.scss";
 
 import logo from "../../../assets/logo.svg";
 import { useRef, useState } from "react";
+import Button from "../../../components/basic/Button";
 function Login() {
 	const [requestCode, setRequestCode] = useState(false);
 
@@ -59,14 +60,20 @@ function Login() {
 			{requestCode ? (
 				<>
 					<h3>Please enter your login code:</h3>
-					<label htmlFor="code">Login Code:</label>
-					<input type="text" name="code" id="code" ref={codeRef} />
-					<button type="submit" onClick={verifyCode}>
-						VERIFY CODE
-					</button>
-					<h4>
-						Don't have an account ? <Link to="/register">Sign Up!</Link>
-					</h4>
+					<section className="code-container">
+						<label htmlFor="code" hidden>
+							LOGIN CODE:
+						</label>
+						<input
+							type="text"
+							name="code"
+							id="code"
+							ref={codeRef}
+							placeholder="XXXX"
+							maxLength="4"
+						/>
+						<Button onClick={verifyCode}>VERIFY CODE</Button>
+					</section>
 				</>
 			) : (
 				<>

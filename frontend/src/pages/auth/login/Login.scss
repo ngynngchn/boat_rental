@@ -26,3 +26,11 @@
 		color: var(--primary-col);
 	}
 }
+
+.code-container {
+	display: flex;
+	gap: 1rem;
+	input {
+		text-align: center;
+	}
+}

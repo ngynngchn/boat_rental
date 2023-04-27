@@ -1,7 +1,7 @@
 import React from "react";
 import "./Basic.scss";
 
-function Button({ color, children, onClick }) {
+function Button({ color = "var(--primary-col)", children, onClick }) {
 	return (
 		<button
 			onClick={onClick}

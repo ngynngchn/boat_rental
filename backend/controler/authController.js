@@ -1,5 +1,10 @@
 import { getDB } from "../utils/db.js";
-import { createToken } from "../utils/token.js";
+import { sendMail } from "../utils/mail.js";
+import {
+	createMailToken,
+	createToken,
+	verifyMailToken,
+} from "../utils/token.js";
 
 // configuration options for HTTP cookies used to store authentification token
 const cookieConfig = {
@@ -12,7 +17,7 @@ const COL = "user";
 
 // register a new user
 export const register = async (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
 
 	if (await checkMail(req.body.email)) {
 		//get database connection
@@ -28,22 +33,23 @@ export const register = async (req, res) => {
 	}
 };
 
-// funtion a authentification of a use
+// funtion for the authentification of a user
+//* Regular login
 export const login = async (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
 	//get a database connection
 	const db = await getDB();
 	// fing the user in the 'user' collection with the specified 'user' and password properties
 	const user = await db
 		.collection(COL)
 		.findOne({ email: req.body.email, pwd: req.body.pwd });
-	// if use does not exist in the database send 401 Unauthorized status code and respond
+	// if user does not exist in the database send 401 Unauthorized status code and respond
 	console.log(user);
 	if (user === null) {
 		res.status(401).json({ message: "Invalid email or password" });
 		// if the user exists in the database create an authentification token and send it to the client in an HTTP cookie
 	} else {
-		console.log(user);
+		// console.log(user);
 		// create an authentification token using the createtoken function
 		//and the dbUser object returned to the database
 		const token = createToken(user);
@@ -53,6 +59,31 @@ export const login = async (req, res) => {
 		// end the response
 		// res.redirect(process.env.VITE_FRONTEND + "/dashboard");
 		res.json({ message: "You logged in successfully" });
+	}
+};
+
+//*  Login via TFA
+export const tfaLogin = async (req, res) => {
+	try {
+		const db = await getDB();
+		// find user in database by looking for the user information
+		const user = await db
+			.collection(COL)
+			.findOne({ email: req.body.email, pwd: req.body.pwd });
+		if (user === null) {
+			// if user is not fount return a message concernin invalid credentials
+			return res.status(401).json({ message: "Invalid email or password" });
+		} else {
+			// if user is found, use the user information to create a mail token
+			const mailToken = createMailToken(user);
+			// the mailtoken.code will be send to the user
+			sendMail(user.email, mailToken.code);
+			// and the client receives the token that is supposed to be saved in the browsers localstorage
+			res.json({ token: mailToken.token, message: "ALL GOOD!" });
+		}
+	} catch (err) {
+		console.log(err.message);
+		res.status(500).end();
 	}
 };
 
@@ -74,5 +105,22 @@ const checkMail = async (email) => {
 		return true;
 	} else {
 		return false;
+	}
+};
+
+export const verifyTFACode = (req, res) => {
+	console.log(req.body);
+	const mailToken = req.headers["authorization"].split(" ")[1];
+	const code = req.body.code;
+	console.log(mailToken, code);
+	try {
+		const claim = verifyMailToken(mailToken, code);
+		console.log(claim);
+		const token = createToken({ user: claim.user });
+		res.cookie("token", token, cookieConfig);
+		res.end();
+	} catch (err) {
+		console.error(err);
+		res.status(401).end();
 	}
 };

@@ -18,3 +18,35 @@ export const verifyToken = (token) => {
 	// Return the decoded payload
 	return result;
 };
+
+//! TFA via email
+
+//*  MAIL TOKEN
+// Create a token using the user ID das the payload
+export const createMailToken = (user) => {
+	// create 4-digit code as an additional signature to the secret key to sign the token
+	const code = createCode();
+	const token = jwt.sign(
+		{ user: user._id },
+		code + process.env.JWT_MAIL_SECRET,
+		{
+			expiresIn: "15m",
+		}
+	);
+	// return the code and the token
+	return { code, token };
+};
+
+export const verifyMailToken = (token, code) => {
+	const result = jwt.verify(token, code + process.env.JWT_MAIL_SECRET);
+	return result;
+};
+
+// Creata 4 - digit code to send to the user to verify
+const createCode = () => {
+	let code = "";
+	for (let i = 0; i < 4; i++) {
+		code += Math.floor(Math.random() * 9);
+	}
+	return code;
+};

@@ -23,7 +23,13 @@ import {
 	validatePassword,
 	verifyJWTCookie,
 } from "./middleware/authMiddleware.js";
-import { login, logout, register } from "./controler/authController.js";
+import {
+	login,
+	tfaLogin,
+	logout,
+	register,
+	verifyTFACode,
+} from "./controler/authController.js";
 
 const server = express();
 const PORT = process.env.PORT;
@@ -79,8 +85,13 @@ server.post(
 );
 
 //login
-server.post("/api/v1/login", upload.none(), encryptPWD, login);
+//* regular login
+// server.post("/api/v1/login", upload.none(), encryptPWD, login);
+//* login with extra mail confirmation tfa
+server.post("/api/v1/login", upload.none(), encryptPWD, tfaLogin);
 
+//* verify code
+server.post("/api/v1/verify-code", verifyTFACode);
 // logout
 server.post("/api/v1/logout", logout);
 

@@ -20,14 +20,14 @@ export const encryptPWD = (req, _, next) => {
 // verify JWT stored in the token cookie of the incoming request
 export const verifyJWTCookie = (req, res, next) => {
 	// get token from the cookie
+	// console.log(req.cookies.token);
 	const token = req.cookies.token;
 	try {
 		// verify token using the verifyToken function from  token.js
 		const claim = verifyToken(token);
 		req.claim = claim;
-
 		// Logs the claim to the console
-		console.log("OUR CLAIM:", req.claim);
+		// console.log("OUR CLAIM:", req.claim);
 
 		// pass control to the next middleware in the chain
 		next();

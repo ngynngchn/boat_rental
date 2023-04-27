@@ -36,7 +36,7 @@ export const getBoatCount = async (req, res) => {
 	try {
 		const db = await getDB();
 		const length = await db.collection(COL).countDocuments();
-		console.log(length);
+		// console.log(length);
 		if (length === null) res.end();
 		else {
 			res.json(length);
@@ -55,7 +55,7 @@ export const getBoat = async (req, res) => {
 			.findOne({ _id: new ObjectId(req.params.id) });
 		if (result === null) res.end();
 		else {
-			console.log(result);
+			// console.log(result);
 			res.json(result);
 		}
 	} catch (err) {

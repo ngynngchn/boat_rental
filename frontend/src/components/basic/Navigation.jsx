@@ -32,7 +32,6 @@ function Navigation() {
 				Reservations
 			</NavLink>
 			<Button onClick={logout} color="var(--primary-col)">
-				{" "}
 				LOG OUT
 			</Button>
 		</nav>

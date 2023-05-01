@@ -73,17 +73,19 @@ export const tfaLogin = async (req, res) => {
 		if (user === null) {
 			// if user is not fount return a message concernin invalid credentials
 			return res.status(401).json({ message: "Invalid email or password" });
+			// res.sendStatus(401);
+			// throw new Error();
 		} else {
 			// if user is found, use the user information to create a mail token
 			const mailToken = createMailToken(user);
 			// the mailtoken.code will be send to the user
 			sendMail(user.email, mailToken.code);
 			// and the client receives the token that is supposed to be saved in the browsers localstorage
-			res.json({ token: mailToken.token, message: "ALL GOOD!" });
+			res.status(200).json({ token: mailToken.token, message: "ALL GOOD!" });
 		}
 	} catch (err) {
 		console.log(err.message);
-		res.status(500).end();
+		res.sendStatus(500);
 	}
 };
 

@@ -4,6 +4,9 @@ import "./Login.scss";
 import logo from "../../../assets/logo.svg";
 import { useRef, useState } from "react";
 import Button from "../../../components/basic/Button";
+
+import toast, { Toaster } from "react-hot-toast";
+
 function Login() {
 	const [requestCode, setRequestCode] = useState(false);
 
@@ -13,8 +16,42 @@ function Login() {
 	const url = import.meta.env.VITE_BACKEND;
 	const apiV = import.meta.env.VITE_API_VERSION;
 
-	//* LOGIN WITH PASSWORD
+	//* LOGIN WITH PASSWORD with Toasties
 	const login = async (e) => {
+		e.preventDefault();
+		const form = new FormData(e.target);
+		const fetchToken = fetch(url + apiV + "/login", {
+			method: "POST",
+			credentials: "include",
+			body: form,
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Invalid email or password");
+				} else {
+					return response.json();
+				}
+			})
+			.then((data) => {
+				localStorage.setItem("mailToken", data.token);
+				setRequestCode(true);
+			})
+			.catch((error) => {
+				console.error(error);
+				throw new Error();
+			});
+
+		await toast.promise(fetchToken, {
+			loading: "Verifying Credentials...",
+			success: "Successful",
+			error: (err) => {
+				console.error(err);
+				return "Login failed.";
+			},
+		});
+	};
+	//* LOGIN WITHOUT TOASTIES
+	const login2 = async (e) => {
 		e.preventDefault();
 		const form = new FormData(e.target);
 		const result = await fetch(url + apiV + "/login", {
@@ -31,11 +68,9 @@ function Login() {
 			setRequestCode(true);
 			console.log(data.message);
 		}
-		// navigate("/dashboard");
 	};
 
 	//* LOGIN WITH CODE
-
 	const verifyCode = async () => {
 		const token = localStorage.getItem("mailToken");
 		const response = await fetch(url + apiV + "/verify-code", {
@@ -74,6 +109,7 @@ function Login() {
 						/>
 						<Button onClick={verifyCode}>VERIFY CODE</Button>
 					</section>
+					<Toaster position="top-center" />
 				</>
 			) : (
 				<>
@@ -88,6 +124,10 @@ function Login() {
 					<h4>
 						Don't have an account ? <Link to="/register">Sign Up!</Link>
 					</h4>
+					<Toaster
+						position="top-center"
+						toastOptions={{ style: { fontFamily: "Barlow Reg" } }}
+					/>
 				</>
 			)}
 		</div>

@@ -38,12 +38,16 @@ const createCounterCol = async (colName) => {
 
 const checkCounterCol = async (colName) => {
 	// zeig alle collections an
-	const collections = await db.collections();
+	try {
+		const collections = await db.collections();
 
-	const countersCol = collections.find(
-		(collection) => collection.colName === colName + "_counter"
-	);
-	if (!countersCol) {
-		await createCounterCol(colName);
+		const countersCol = collections.find(
+			(collection) => collection.colName === colName + "_counter"
+		);
+		if (!countersCol) {
+			await createCounterCol(colName);
+		}
+	} catch (err) {
+		console.log(err.message);
 	}
 };

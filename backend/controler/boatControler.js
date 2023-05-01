@@ -5,9 +5,9 @@ import cloudinary from "cloudinary";
 const COL = "boats";
 
 cloudinary.config({
-	cloud_name: "dptfmdfgh",
-	api_key: "516144212491758",
-	api_secret: "7PYx8JcKmK3XpYopgLA4Pw8MnPk",
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET,
 });
 
 //* ========= ADD  A BOAT =======
@@ -106,22 +106,32 @@ export const getBoat = async (req, res) => {
 		}
 	} catch (err) {
 		console.error(err.message);
-		res.send(500).end();
+		res.sendStatus(500);
 	}
 };
 
 export const deleteBoat = async (req, res) => {
+	// receive id via req.params.id)
 	try {
 		const db = await getDB();
 		const response = await db
 			.collection(COL)
-			.deleteOne({ _id: new ObjectId(req.params.id) });
-		if (response === null) res.end();
-		else {
-			res.json(response);
-		}
+			.findOne({ _id: new ObjectId(req.params.id) });
+		cloudinary.v2.uploader.destroy(
+			response.img.public_id,
+			async (err, result) => {
+				if (err) throw err;
+				await db
+					.collection(COL)
+					.deleteOne({ _id: new ObjectId(req.params.id) }, (err, result) => {
+						if (err) throw err;
+						console.log("DB", result);
+					});
+			}
+		);
+		res.json({ message: "Deleted image" });
 	} catch (err) {
-		console.error(err.message);
-		res.send(500).end();
+		console.log(err);
+		res.json({ message: "Nah deleting your image did not work" });
 	}
 };

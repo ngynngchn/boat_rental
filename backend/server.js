@@ -48,9 +48,9 @@ const upload = multer({ storage: multer.memoryStorage() });
 // server.use("/uploads", express.static("./uploads"));
 
 cloudinary.config({
-	cloud_name: "dptfmdfgh",
-	api_key: "516144212491758",
-	api_secret: "7PYx8JcKmK3XpYopgLA4Pw8MnPk",
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET,
 });
 
 // boats

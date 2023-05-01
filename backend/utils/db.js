@@ -20,6 +20,30 @@ export const getDB = async () => {
 		// Otherwise, connect to the database and store the connection in the `db` variable
 		await client.connect();
 		db = client.db(DB);
+
+		await checkCounterCol("boats");
+		await checkCounterCol("reservations");
+
 		return db;
+	}
+};
+
+//* ====== CREATE COUNTER FOR INDEXING BOATS AND RESERVATIONS ======
+const createCounterCol = async (colName) => {
+	await db.createCollection(colName + "_counter");
+	await db
+		.collection(colName + "_counter")
+		.insertOne({ _id: colName + "_id", seq: 1 });
+};
+
+const checkCounterCol = async (colName) => {
+	// zeig alle collections an
+	const collections = await db.collections();
+
+	const countersCol = collections.find(
+		(collection) => collection.colName === colName + "_counter"
+	);
+	if (!countersCol) {
+		await createCounterCol(colName);
 	}
 };

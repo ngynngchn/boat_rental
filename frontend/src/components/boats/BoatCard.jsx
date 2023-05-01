@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import "./BoatCard.scss";
 
 function BoatCard({ ...boat }) {
-	const url = import.meta.env.VITE_BACKEND + "/" + boat.pic;
+	// const url = import.meta.env.VITE_BACKEND + "/" + boat.pic;
 	return (
 		<Link to={`/boats/${boat["_id"]}`}>
 			<div className="BoatCard">
-				<img className="ship" src={url} alt={boat.name} />
+				<img className="ship" src={boat.img.url} alt={boat.name} />
 				<h4>{boat.boatID}</h4>
 				<h3>{boat.name}</h3>
 				<div>

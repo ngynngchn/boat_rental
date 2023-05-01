@@ -52,7 +52,7 @@ function BoatDetails() {
 	return (
 		<div className="BoatDetails">
 			<h1>{details.name}</h1>
-			<img src={url + "/" + details.pic} alt={details.name} />
+			<img src={details.img.url} alt={details.name} />
 			<div>
 				<div className="actions">
 					<Button
@@ -103,8 +103,8 @@ function BoatDetails() {
 
 					{editable && (
 						<div>
-							<label htmlFor="pic">Change picture</label>
-							<input type="file" name="pic" id="pic" />
+							<label htmlFor="file">Change picture</label>
+							<input type="file" name="file" id="file" />
 						</div>
 					)}
 

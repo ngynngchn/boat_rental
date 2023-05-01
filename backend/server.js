@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import multer from "multer";
 import cookieParser from "cookie-parser";
+import cloudinary from "cloudinary";
 import {
 	addBoat,
 	deleteBoat,
@@ -40,11 +41,20 @@ server.use(express.json());
 server.use(cors({ origin: origin, credentials: true }));
 server.use(cookieParser());
 
-const upload = multer({ dest: "uploads/" });
-server.use("/uploads", express.static("./uploads"));
+// store files in buffer
+const upload = multer({ storage: multer.memoryStorage() });
+
+// const upload = multer({ dest: "uploads/" });
+// server.use("/uploads", express.static("./uploads"));
+
+cloudinary.config({
+	cloud_name: "dptfmdfgh",
+	api_key: "516144212491758",
+	api_secret: "7PYx8JcKmK3XpYopgLA4Pw8MnPk",
+});
 
 // boats
-server.post("/api/v1/boats", upload.single("pic"), verifyJWTCookie, addBoat);
+server.post("/api/v1/boats", upload.single("file"), verifyJWTCookie, addBoat);
 
 server.get("/api/v1/boats", verifyJWTCookie, getBoats);
 

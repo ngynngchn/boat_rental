@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Boats.scss";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/basic/Button";
@@ -6,11 +6,13 @@ function BoatForm() {
 	const url = import.meta.env.VITE_BACKEND;
 	const endpoint = import.meta.env.VITE_ENDPOINT;
 
+	const imgRef = useRef();
 	const navigate = useNavigate();
 
 	const addData = async (e) => {
 		e.preventDefault();
 		const form = new FormData(e.target);
+		// form.append("file", imgRef.current.files[0]);
 		try {
 			const response = await fetch(url + endpoint, {
 				method: "POST",
@@ -21,7 +23,7 @@ function BoatForm() {
 		} catch (err) {
 			console.log("Something did not work", err);
 		}
-		navigate("/boats");
+		// navigate("/boats");
 		// e.target.reset()
 	};
 
@@ -52,8 +54,8 @@ function BoatForm() {
 					<option value="House Boat">House Boat</option>
 				</select>
 
-				<label htmlFor="pic">Upload a picture</label>
-				<input type="file" name="pic" id="pic" />
+				<label htmlFor="file">Upload a picture</label>
+				<input type="file" name="file" id="file" ref={imgRef} />
 				<input type="submit" value="ADD NEW BOAT" />
 			</form>
 		</div>

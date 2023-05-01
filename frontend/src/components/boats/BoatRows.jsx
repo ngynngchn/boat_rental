@@ -3,7 +3,7 @@ import "./BoatRows.scss";
 import { Link } from "react-router-dom";
 
 function BoatRows({ boat, selected, onclick }) {
-	const url = import.meta.env.VITE_BACKEND + "/" + boat.pic;
+	// const url = import.meta.env.VITE_BACKEND + "/" + boat.pic;
 
 	return (
 		<div
@@ -11,7 +11,7 @@ function BoatRows({ boat, selected, onclick }) {
 			onClick={onclick}>
 			<img
 				className="ship"
-				src={url}
+				src={boat.img.url}
 				alt={boat.name}
 				height="100px"
 				width="100px"

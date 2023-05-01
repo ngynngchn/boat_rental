@@ -25,7 +25,8 @@ function DetailsFrame({ details, removeEvent, editEvent, children }) {
 
 	return (
 		<div className="DetailsFrame">
-			<img src={url + "/" + boatData.pic} alt={boatData.name} />
+			{/* <img src={url + "/" + boatData.pic} alt={boatData.name} /> */}
+			<img src={boatData.img.url} alt={boatData.name} />
 			<div className="container">
 				<div className="actions">
 					<Button
